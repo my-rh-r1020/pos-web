@@ -17,7 +17,7 @@
     <div class="navbar-menu">
         <div class="mt-6">
             <li>
-                <a href="#">
+                <a href="{{ route('dashboard') }}" class="{{ Request::is('dashboard') ? 'active':'' }}">
                     <span class="nav-icon">
                         <i class="bx bxs-home"></i>
                     </span>
@@ -28,33 +28,33 @@
                 <li>
                     <a href="#">
                         <span class="nav-icon">
-                            <i class="bx bx-menu"></i>
+                            <i class='bx bxs-component'></i>
                         </span>
-                        <span class="nav-text">Menu 1</span>
+                        <span class="nav-text">Products</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <span class="nav-icon">
-                            <i class="bx bx-menu"></i>
+                            <i class='bx bxs-package'></i>
                         </span>
-                        <span class="nav-text">Menu 2</span>
+                        <span class="nav-text">Transactions</span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="#">
                         <span class="nav-icon">
                             <i class="bx bx-menu"></i>
                         </span>
                         <span class="nav-text">Menu 3</span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
-                    <a href="#">
+                    <a href="{{ route('users-data') }}" class="{{ Request::is('users') ? 'active':'' }}">
                         <span class="nav-icon">
-                            <i class="bx bx-menu"></i>
+                            <i class='bx bxs-user-account'></i>
                         </span>
-                        <span class="nav-text">Menu 4</span>
+                        <span class="nav-text">Users</span>
                     </a>
                 </li>
             </ul>

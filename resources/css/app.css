@@ -18,6 +18,9 @@
     .sidebar a {
         @apply no-underline h-full w-full flex items-center rounded-md transition-all duration-[400] ease-in text-grayText;
     }
+    .sidebar a.active {
+        @apply bg-sky-500 text-[#fff];
+    }
     .sidebar a:hover {
         @apply bg-sky-600 text-[#fff];
     }
@@ -71,5 +74,8 @@
     }
     .auth-btn {
         @apply text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-5 py-2 text-center;
+    }
+    .auth-error-msg {
+        @apply text-red-400 text-sm mt-1;
     }
 }

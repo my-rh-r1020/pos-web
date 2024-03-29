@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,11 +19,17 @@ use Illuminate\Support\Facades\Route;
 // Guest Session
 Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
-        Route::get('login', 'login')->name('login');
+        Route::get('/', 'login')->name('login');
         Route::get('register', 'register')->name('register');
+        Route::post('register', 'registerProcess')->name('register-process');
+        Route::post('/', 'loginProcess')->name('login-process');
     });
 });
 
-Route::get('/', function () {
-    return view('pages.user.dashboard');
+// Auth Session
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('users', [UserController::class, 'index'])->name('users-data');
+
+    Route::post('logout', [AuthController::class, 'logout'])->name('user-logout');
 });
