@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\User\DashboardController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\NonAPI\CategoryController;
+use App\Http\Controllers\NonAPI\DashboardController;
+use App\Http\Controllers\NonAPI\ProductController;
+use App\Http\Controllers\NonAPI\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +32,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('users', [UserController::class, 'index'])->name('users-data');
+    Route::resource('products', ProductController::class);
+    Route::resource('categories', CategoryController::class);
 
     Route::post('logout', [AuthController::class, 'logout'])->name('user-logout');
 });

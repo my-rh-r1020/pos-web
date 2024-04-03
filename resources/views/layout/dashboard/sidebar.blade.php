@@ -26,7 +26,15 @@
             </li>
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('categories.index') }}" class="{{ Request::is('categories') ? 'active':'' }}">
+                        <span class="nav-icon">
+                            <i class='bx bxs-category'></i>
+                        </span>
+                        <span class="nav-text">Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('products.index') }}" class="{{ Request::is('products') ? 'active':'' }}">
                         <span class="nav-icon">
                             <i class='bx bxs-component'></i>
                         </span>
