@@ -23,9 +23,11 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'product_name' => 'required|min:3',
+            'category_id' => 'required',
             'description' => 'required|min:5',
-            'price' => 'numeric',
-            'stock' => 'required|integer'
+            'price' => 'required|integer',
+            'stock' => 'required|integer',
+            'product_img' => 'required|image|mimes:jpeg,png,jpg|max:1024'
         ];
     }
 }

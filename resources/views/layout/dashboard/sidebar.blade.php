@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('products.index') }}" class="{{ Request::is('products') ? 'active':'' }}">
+                    <a href="{{ route('products.index') }}" class="{{ Request::is('products*') ? 'active':'' }}">
                         <span class="nav-icon">
                             <i class='bx bxs-component'></i>
                         </span>
@@ -58,7 +58,7 @@
                     </a>
                 </li> --}}
                 <li>
-                    <a href="{{ route('users-data') }}" class="{{ Request::is('users') ? 'active':'' }}">
+                    <a href="{{ route('users.data') }}" class="{{ Request::is('users*') ? 'active':'' }}">
                         <span class="nav-icon">
                             <i class='bx bxs-user-account'></i>
                         </span>

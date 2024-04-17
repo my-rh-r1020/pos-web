@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Exception;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -16,10 +17,15 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::when(
-            $request->input('search'),
-            fn ($query, $search) => $query->where('name', 'like', '%' . $search . '%')
-        )->orderBy('id', 'desc')->paginate(10)->withQueryString();
+        try {
+            $categories = Category::when(
+                $request->input('search'),
+                fn ($query, $search) => $query->where('name', 'like', '%' . $search . '%')
+            )->orderBy('id', 'desc')->paginate(10)->withQueryString();
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            var_dump('Exception Message: ' . $message);
+        }
 
         return view('pages.dashboard.categories.index', compact('categories'));
     }
@@ -37,12 +43,17 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $data = $request->validated();
-        $data['slug'] = Str::slug($request->name);
+        try {
+            $data = $request->validated();
+            $data['slug'] = Str::slug($request->name);
 
-        Category::create($data);
+            Category::create($data);
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            var_dump('Exception Message: ' . $message);
+        }
 
-        return redirect()->route('categories.index')->with('success', 'New category was added');
+        return redirect()->route('categories.index')->with('success', 'New category successful added');
     }
 
     /**
@@ -66,7 +77,17 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        try {
+            $data = $request->validated();
+            $data['slug'] = Str::slug($request->name);
+
+            $category->update($data);
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            var_dump('Exception Message: ' . $message);
+        }
+
+        return redirect()->route('categories.index')->with('success', 'Category successful updated');
     }
 
     /**
@@ -74,6 +95,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index')->with('success', 'Category successful deleted');
     }
 }

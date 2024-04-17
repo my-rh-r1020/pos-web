@@ -23,17 +23,21 @@ Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('/', 'login')->name('login');
         Route::get('register', 'register')->name('register');
-        Route::post('register', 'registerProcess')->name('register-process');
-        Route::post('/', 'loginProcess')->name('login-process');
+        Route::post('register', 'registerProcess')->name('register.process');
+        Route::post('/', 'loginProcess')->name('login.process');
     });
 });
 
 // Auth Session
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('users', [UserController::class, 'index'])->name('users-data');
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);
+    Route::controller(UserController::class)->group(function () {
+        Route::get('users', 'index')->name('users.data');
+        Route::get('users/{user}', 'edit')->name('users.edit');
+        Route::post('users/{user}', 'update')->name('users.update');
+    });
 
-    Route::post('logout', [AuthController::class, 'logout'])->name('user-logout');
+    Route::post('logout', [AuthController::class, 'logout'])->name('user.logout');
 });

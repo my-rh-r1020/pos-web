@@ -10,19 +10,19 @@
     <div class="bg-[#fff] rounded-md p-4">
         <div class="grid grid-cols-3 gap-2 text-grayText">
             <div class="col-span-2">
-                <i class='bx bxs-data text-4xl font-medium mb-3'></i>
-                <span class="text-base block">Data Apa Saja Yang Penting Data</span>
+                <i class='bx bxs-component text-4xl font-medium mb-3'></i>
+                <span class="text-base block">Products</span>
             </div>
-            <div class="flex items-center justify-center text-3xl font-medium">1</div>
+            <div class="flex items-center justify-center text-3xl font-medium">{{ $products }}</div>
         </div>
     </div>
     <div class="bg-[#fff] rounded-md p-4">
         <div class="grid grid-cols-3 gap-2 text-grayText">
             <div class="col-span-2">
-                <i class='bx bxs-data text-4xl font-medium mb-3'></i>
-                <span class="text-base block">Data Apa Saja Yang Penting Data</span>
+                <i class='bx bxs-user-account text-4xl font-medium mb-3'></i>
+                <span class="text-base block">Users</span>
             </div>
-            <div class="flex items-center justify-center text-3xl font-medium">2</div>
+            <div class="flex items-center justify-center text-3xl font-medium">{{ $users }}</div>
         </div>
     </div>
 </div>

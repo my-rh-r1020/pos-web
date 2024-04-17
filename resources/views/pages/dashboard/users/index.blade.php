@@ -24,7 +24,7 @@
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full sm:text-sm lg:text-base text-left rtl:text-right text-gray-500">
-            <thead class="sm:text-xs lg:text-base text-gray-700 uppercase bg-gray-50">
+            <thead class="sm:text-xs lg:text-base text-gray-700 uppercase bg-gray-50 text-center">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         No
@@ -46,24 +46,82 @@
             <tbody>
                 @foreach ($users as $user)
                 <tr class="bg-white border-b hover:bg-gray-50">
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 text-center">
                         {{ $loop->iteration }}
                     </td>
                     <td class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                        <img class="w-10 h-10 rounded-full" src="{{ asset('assets/images/'.$user->avatar) }}" alt="{{ $user->fullname }}">
+                        <img class="w-10 h-10 rounded-full" src="{{ asset('storage/profile-image/'.auth()->user()->avatar) }}" alt="{{ $user->fullname }}">
                         <div class="ps-3">
                             <span>{{ $user->fullname }}</span>
                         </div>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 text-center">
                         {{ $user->role }}
                     </td>
                     <td class="px-6 py-4">
                         {{ $user->email }}
                     </td>
                     <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
-                        <a href="#" class="font-medium text-red-600 hover:underline ms-3">Remove</a>
+                        <div class="flex justify-center gap-2">
+                            <button type="button" class="detail-modal-btn" data-modal-target="userDetailModal-{{ $user->id }}" data-modal-toggle="userDetailModal-{{ $user->id }}">
+                                <i class='bx bx-show'></i>
+                            </button>
+                            <a href="{{ route('users.edit',$user->id) }}" class="edit-btn">
+                                <i class='bx bxs-edit'></i>
+                            </a>
+                            @if ($user->role !== 'admin')
+                            <button type="button" class="delete-modal-btn">
+                                <i class='bx bxs-trash' ></i>
+                            </button>
+                            @endif
+                        </div>
+
+                        {{-- Modal --}}
+                        <div id="userDetailModal-{{ $user->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative p-4 w-full max-w-md lg:max-w-3xl max-h-full">
+                                <div class="relative bg-white rounded-lg shadow">
+                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                        <h3 class="text-lg font-semibold text-gray-900">
+                                            Detail User
+                                        </h3>
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-toggle="userDetailModal-{{ $user->id }}">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <div class="p-4 md:p-5 grid lg:grid-cols-2 gap-2 md:gap-4 xl:gap-6">
+                                        <div>
+                                            <div class="relative mb-5">
+                                                <input type="text" id="floating_name" value="{{ $user->fullname }}" class="form-input border-1 peer" placeholder=" " disabled/>
+                                                <label for="floating_name" class="form-label">Full Name</label>
+                                            </div>
+                                            <div class="relative mb-5">
+                                                <input type="text" id="floating_role" value="{{ $user->role }}" class="form-input border-1 peer" placeholder=" " disabled/>
+                                                <label for="floating_role" class="form-label">Role</label>
+                                            </div>
+                                            <div class="relative mb-5">
+                                                <input type="text" id="floating_address" value="{{ $user->address }}" class="form-input border-1 peer" placeholder=" " disabled/>
+                                                <label for="floating_address" class="form-label">Address</label>
+                                            </div>
+                                            <div class="relative mb-5">
+                                                <input type="text" id="floating_phoneNumber" value="{{ $user->phoneNumber }}" class="form-input border-1 peer" placeholder=" " disabled/>
+                                                <label for="floating_phoneNumber" class="form-label">Phone Number</label>
+                                            </div>
+                                            <div class="relative mb-5">
+                                                <input type="text" id="floating_email" value="{{ $user->email }}" class="form-input border-1 peer" placeholder=" " disabled/>
+                                                <label for="floating_email" class="form-label">Email</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="text-sm lg:text-base font-medium text-gray-900">Avatar</label>
+                                            <img src="{{ asset('storage/profile-image/'.auth()->user()->avatar) }}" alt="avatar" class="mt-2 border-8 rounded-full mx-auto" width="300px" height="300px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

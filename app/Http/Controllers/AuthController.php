@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         User::create($credentials);
 
-        return redirect('/')->with('success', 'Registration Successfully');
+        return redirect('/')->with('success', 'Registration Successful');
     }
 
     public function logout(Request $request)
