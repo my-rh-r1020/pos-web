@@ -91,7 +91,6 @@
         @apply bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm md:text-base xl:text-lg;
     }
     .add-modal-btn {
-        /* @apply block text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-md px-4 py-2 text-center text-sm lg:text-base; */
         @apply text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-md px-3 py-1 text-center text-sm md:text-base xl:text-lg;
     }
     .edit-btn {

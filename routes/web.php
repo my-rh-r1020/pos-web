@@ -33,11 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);
-    Route::controller(UserController::class)->group(function () {
-        Route::get('users', 'index')->name('users.data');
-        Route::get('users/{user}', 'edit')->name('users.edit');
-        Route::post('users/{user}', 'update')->name('users.update');
-    });
+    Route::resource('users', UserController::class);
 
     Route::post('logout', [AuthController::class, 'logout'])->name('user.logout');
 });

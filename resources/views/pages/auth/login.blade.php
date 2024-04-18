@@ -34,3 +34,43 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+@if (session('success'))
+<script type="module">
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+    Toast.fire({
+        icon: 'success',
+        title: '{{ session('success') }}'
+    })
+</script>
+@endif
+
+@if (session('failed'))
+<script type="module">
+    Swal.fire({
+        icon: 'error',
+        title: '{{ session('failed') }}',
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+            }, 100)
+        },
+    })
+</script>
+@endif
+@endpush
