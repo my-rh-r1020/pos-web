@@ -38,14 +38,16 @@ class AuthAPIController extends BaseResponseController
      */
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => 'required|email:dns|min:5',
+            'password' => 'required'
+        ]);
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $success = $user;
             $success['token'] = $user->createToken('api_token')->plainTextToken;
-            $success['fullname'] = $user->fullname;
-            $success['role'] = $user->role;
-            $success['email'] = $user->email;
+            // $success['fullname'] = $user->fullname;
 
             return $this->sendResponse($success, 'Login Success');
         } else {

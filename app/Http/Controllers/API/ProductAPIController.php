@@ -80,8 +80,11 @@ class ProductAPIController extends BaseResponseController
      */
     public function destroy(Product $product)
     {
+        if (Storage::exists('public/product-image/' . $product->product_img)) {
+            Storage::delete('public/product-image/' . $product->product_img);
+        }
+
         $product->deleteOrFail();
-        Storage::delete($product->product_img);
         return $this->sendResponse([], 'Product successful deleted');
     }
 }
